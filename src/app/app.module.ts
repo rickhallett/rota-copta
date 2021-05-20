@@ -4,9 +4,9 @@ import { HttpClientModule } from '@angular/common/http';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { UsersComponent } from './users/users.component';
-import { RolesComponent } from './roles/roles.component';
-import { HomeComponent } from './home/home.component';
+import { UsersComponent } from './components/users/users.component';
+import { RolesComponent } from './components/roles/roles.component';
+import { HomeComponent } from './components/home/home.component';
 import { UsersService } from './services/users.service';
 
 @NgModule({
