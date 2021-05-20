@@ -24,4 +24,14 @@ export class UsersComponent implements OnInit {
 
   }
 
+  // TODO: role name is dynamic depending on what comes back from role endpoint
+  getRoleName(role: number): string {
+    return 'High Roller';
+  }
+
+  // TODO: role colour is dynamic depending on what comes back from role endpoint
+  getRoleColour(role: number): string {
+    return '#e88abb';
+  }
+
 }
