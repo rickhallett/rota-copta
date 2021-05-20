@@ -3,3 +3,9 @@ export interface User {
   name: string;
   roles: number[];
 }
+
+export interface Role {
+  id: number,
+  name: string,
+  colour: string
+}
