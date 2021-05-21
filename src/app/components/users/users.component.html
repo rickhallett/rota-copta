@@ -10,11 +10,11 @@
     <td><input type="text" [value]="user.name" (keyup)="onNameInput($event, user.id)" /></td>
     <td>
       <div
-        *ngFor="let role of user.roles"
+        *ngFor="let role of getUserRoles(user)"
         class="tag"
-        [style.background-color]="getRoleColour(role)"
+        [style.background-color]="role ? role.colour : null"
       >
-        {{ getRoleName(role) }}
+        {{ role ? role.name : null }}
       </div>
     </td>
   </tr>

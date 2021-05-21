@@ -1,6 +1,6 @@
 import { Injectable } from "@angular/core";
 import { BehaviorSubject, Observable } from "rxjs";
-import { Role, User } from "./models";
+import { Role, User } from "../models/models";
 import { RolesService } from "./roles.service";
 import { UsersService } from "./users.service";
 
@@ -31,6 +31,20 @@ export class DataStore {
     return this._users
       .getValue()
       .filter((user) => (user.roles ? user.roles.includes(roleId) : false));
+  }
+
+  getUserRoles(user: User) {
+    if (!user.roles) return null;
+    
+    // const userRoles = [];
+
+    // user.roles.forEach(roleId => {
+    //   userRoles.push(this._roles.getValue().find(r => r.id === roleId))
+    // });
+
+    return user.roles
+      .map((roleId) => this._roles.getValue().find((r) => r.id === roleId))
+      .sort((a, b) => (a.name < b.name ? -1 : 1));
   }
 
   getRoleColour(roleId: number): string {

@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { DataStore } from 'src/app/services/data-store.service';
-import { User } from 'src/app/services/models';
+import { User } from 'src/app/models/models';
 
 @Component({
   selector: "app-roles",
