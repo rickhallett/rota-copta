@@ -20,7 +20,7 @@ export class RolesComponent implements OnInit {
   }
 
   getRoleColour(roleId: number): string {
-    return null;
+    return this.dataStoreService.getRoleColour(roleId);
   }
 
   get $roles() {
