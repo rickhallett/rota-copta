@@ -36,4 +36,22 @@
 		<a href="https://custom.rotacloud.com/angular-challenge/roles.json" target="_blank">https://custom.rotacloud.com/angular-challenge/roles.json</a>
 	</p>
 
+
+	<h2>Challenge debrief notes</h2>
+
+	<ol>
+		<li>Being completely honest, I would say this took me about 6 hours of effort, not 1.5. A significant chunk of that was spent going down
+			the rabbit hole of asynchronous data services; it wasn't until I found out about BehaviourSubject and the data store pattern that 
+			I was more easily able to solve this problem (without modifying the HTML, which would have been a lot easier)
+		</li>
+		<li>If I had more time, I would like to add some unit tests, but as I have never written specs for Angular, it would hold my submission time back.
+			Another potential improvement would be to statically map some of the data before the templates access it, as accessing this data via functions
+			seems to generate a lot of component update cycles. For this example it doesn't matter, but I would imagine in a large app this could create a
+			performance hit.
+		</li>
+		<li>Thank you for the opportunity!</li>
+	</ol>
+
+	<p>Rick Hallett</p>
+
 </section>
