@@ -24,7 +24,9 @@ export class DataStore {
     this.rolesService.getRoles().subscribe((data) => this._roles.next(data));
   }
 
-  // TODO: this approach ends up calling getRoleUsers 30x on page load (presumably a result of returning a new data structure to the view, which causes some cascade of lifecycle hook execution)
+  // TODO: this approach ends up calling getRoleUsers 30x on page load (presumably a result of returning a new data structure to the view, 
+  // which causes some cascade of lifecycle hook execution)
+  // SOLUTION: map the data prior to request from template
   getRoleUsers(roleId: number): User[] {
     return this._users
       .getValue()
@@ -42,12 +44,12 @@ export class DataStore {
   }
 
   updateUserName(newName, userId) {
-    // this.users = this.users.map((user) => {
-    //   if (user.id === userId) {
-    //     user.name = newName;
-    //   }
+    this._users.next(this._users.getValue().map((user) => {
+      if (user.id === userId) {
+        user.name = newName;
+      }
 
-    //   return user;
-    // });
+      return user;
+    }));
   }
 }
