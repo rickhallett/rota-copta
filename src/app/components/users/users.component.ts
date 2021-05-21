@@ -19,6 +19,8 @@ export class UsersComponent implements OnInit {
   ) {}
 
   ngOnInit() {
+    // TODO: this data will need to be lifted to app.component.ts level so that both roles.component.ts and users.component.ts can update state
+    // TODO: users/roles can not be overwritten on page refresh if user edits are to be preserved
     this.usersService
       .getUsers()
       .subscribe((data: User[]) => (this.users = data));
