@@ -37,14 +37,12 @@ export class DataStore {
 
   getRoleColour(roleId: number): string {
     const role = this._roles.value.find((role) => role.id === roleId);
-
     return role ? role.colour : null;
   }
 
   getRoleName(roleId: number): string {
-    // if (this.roles) {
-      // return this.roles.find((role) => role.id === roleId).name;
-    // }
+    const role = this._roles.value.find((role) => role.id === roleId);
+    return role ? role.name : null;
   }
 
   updateUserName(newName, userId) {
