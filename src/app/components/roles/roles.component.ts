@@ -9,45 +9,16 @@ import { UsersService } from 'src/app/services/users.service';
   styleUrls: ["./roles.component.css"],
 })
 export class RolesComponent implements OnInit {
-  public users: User[];
-  public roles: Role[];
+  constructor() {}
 
-  constructor(
-    private usersService: UsersService,
-    private rolesService: RolesService
-  ) {}
+  ngOnInit() {}
 
-  ngOnInit() {
-    // TODO: this data will need to be lifted to app.component.ts level so that both roles.component.ts and users.component.ts can update state
-    this.usersService
-      .getUsers()
-      .subscribe((data: User[]) => (this.users = data));
-
-    this.rolesService
-      .getRoles()
-      .subscribe((data: Role[]) => (this.roles = data));
-
-    setTimeout(() => {
-      console.log("users", this.users);
-      console.log("roles", this.roles);
-    }, 1000);
-  }
-
+  // TODO: this approach ends up calling getRoleUsers 30x on page load (presumably a result of returning a new data structure to the view, which causes some cascade of lifecycle hook execution)
   getRoleUsers(roleId: number): User[] {
-    if (!this.roles) return null;
-
-    const filteredUsers = this.users.filter((user) => {
-      
-      return user.roles ? user.roles.includes(roleId) : false;
-    })
-
-    console.log('filteredUsers', filteredUsers);
-    return filteredUsers;
+    return null;
   }
 
   getRoleColour(roleId: number): string {
-    if (this.roles) {
-      return this.roles.find((role) => role.id === roleId).colour;
-    }
+    return null;
   }
 }

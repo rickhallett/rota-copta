@@ -5,9 +5,9 @@
     <th>Name</th>
     <th>Roles</th>
   </thead>
-  <tr *ngFor="let user of users">
+  <tr *ngFor="let user of $users | async">
     <td>{{ user.id }}</td>
-    <td><input type="text" [value]="user.name" /></td>
+    <td><input type="text" [value]="user.name" (keyup)="onNameInput($event, user.id)" /></td>
     <td>
       <div
         *ngFor="let role of user.roles"
