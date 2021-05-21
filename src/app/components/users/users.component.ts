@@ -1,7 +1,7 @@
 import { Component, OnChanges, OnInit } from "@angular/core";
 import { Observable } from 'rxjs';
-import { SharedDataService } from 'src/app/services/shared-data.service';
 import { Role, User } from 'src/app/services/models';
+import { DataStore } from 'src/app/services/data-store.service';
 
 @Component({
   selector: "app-users",
@@ -10,30 +10,30 @@ import { Role, User } from 'src/app/services/models';
 })
 export class UsersComponent implements OnInit, OnChanges {
   public roles: Role[];
-  public $users: Observable<User[]>;
 
-  constructor(private dataService: SharedDataService) {}
+  constructor(private dataStoreService: DataStore) {}
 
   ngOnInit() {
-    this.roles = this.dataService.getRoles();
-    this.$users = this.dataService.getUsers();
+
   }
 
   ngOnChanges() {
-    console.log("UsersComponent.ngOnChanges");
-    // this.roles = this.dataService.getRoles();
-    // this.$users = this.dataService.getUsers();
+
+  }
+
+  get $users() {
+    return this.dataStoreService.$users;
   }
 
   getRoleName(roleId: number): string {
-    return this.dataService.getRoleName(roleId);
+    return this.dataStoreService.getRoleName(roleId);
   }
 
   getRoleColour(roleId: number): string {
-    return this.dataService.getRoleColour(roleId);
+    return this.dataStoreService.getRoleColour(roleId);
   }
 
   onNameInput(event: any, userId: number) {
-    this.dataService.updateUserName(event.target.value, userId)
+    this.dataStoreService.updateUserName(event.target.value, userId);
   }
 }

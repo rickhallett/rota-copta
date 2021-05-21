@@ -9,12 +9,12 @@ import { RolesComponent } from './components/roles/roles.component';
 import { HomeComponent } from './components/home/home.component';
 import { UsersService } from './services/users.service';
 import { RolesService } from './services/roles.service';
-import { SharedDataService } from './services/shared-data.service';
+import { DataStore } from './services/data-store.service';
 
 @NgModule({
   declarations: [AppComponent, UsersComponent, RolesComponent, HomeComponent],
   imports: [BrowserModule, HttpClientModule, AppRoutingModule],
-  providers: [UsersService, RolesService, SharedDataService],
+  providers: [UsersService, RolesService, DataStore],
   bootstrap: [AppComponent],
 })
 export class AppModule {}
