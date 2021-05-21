@@ -9,8 +9,6 @@ import { DataStore } from 'src/app/services/data-store.service';
   styleUrls: ["./users.component.css"],
 })
 export class UsersComponent implements OnInit, OnChanges {
-  public roles: Role[];
-
   constructor(private dataStoreService: DataStore) {}
 
   ngOnInit() {

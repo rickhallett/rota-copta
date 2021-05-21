@@ -26,22 +26,18 @@ export class DataStore {
 
   // TODO: this approach ends up calling getRoleUsers 30x on page load (presumably a result of returning a new data structure to the view, which causes some cascade of lifecycle hook execution)
   getRoleUsers(roleId: number): User[] {
-    // if (!this.roles) return null;
-
-    // const filteredUsers = this.users.filter((user) => {
-    //   return user.roles ? user.roles.includes(roleId) : false;
-    // });
-
-    // return filteredUsers;
+    return this._users
+      .getValue()
+      .filter((user) => (user.roles ? user.roles.includes(roleId) : false));
   }
 
   getRoleColour(roleId: number): string {
-    const role = this._roles.value.find((role) => role.id === roleId);
+    const role = this._roles.getValue().find((role) => role.id === roleId);
     return role ? role.colour : null;
   }
 
   getRoleName(roleId: number): string {
-    const role = this._roles.value.find((role) => role.id === roleId);
+    const role = this._roles.getValue().find((role) => role.id === roleId);
     return role ? role.name : null;
   }
 

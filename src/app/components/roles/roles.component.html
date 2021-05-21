@@ -5,7 +5,7 @@
 		<th>Name</th>
 		<th>Users</th>
 	</thead>
-	<tr *ngFor='let role of roles'>
+	<tr *ngFor='let role of $roles | async'>
 		<td>{{ role.id }}</td>
 		<td><input type="text" [value]="role.name" [style.color]="getRoleColour(role.id)"></td>
 		<td >
