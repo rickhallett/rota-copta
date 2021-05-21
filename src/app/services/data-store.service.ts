@@ -30,17 +30,12 @@ export class DataStore {
   getRoleUsers(roleId: number): User[] {
     return this._users
       .getValue()
-      .filter((user) => (user.roles ? user.roles.includes(roleId) : false));
+      .filter((user) => (user.roles ? user.roles.includes(roleId) : false))
+      .sort((a, b) => a.name < b.name ? -1 : 1);
   }
 
-  getUserRoles(user: User) {
+  getUserRoles(user: User): Role[] {
     if (!user.roles) return null;
-    
-    // const userRoles = [];
-
-    // user.roles.forEach(roleId => {
-    //   userRoles.push(this._roles.getValue().find(r => r.id === roleId))
-    // });
 
     return user.roles
       .map((roleId) => this._roles.getValue().find((r) => r.id === roleId))
@@ -57,7 +52,7 @@ export class DataStore {
     return role ? role.name : null;
   }
 
-  updateUserName(newName, userId) {
+  updateUserName(newName, userId): void {
     this._users.next(this._users.getValue().map((user) => {
       if (user.id === userId) {
         user.name = newName;
