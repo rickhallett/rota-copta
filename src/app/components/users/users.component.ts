@@ -1,6 +1,6 @@
 import { Component, OnChanges, OnInit } from "@angular/core";
 import { Observable } from "rxjs";
-import { Role, User } from "src/app/models/models";
+import { User } from "src/app/models/models";
 import { DataStore } from "src/app/services/data-store.service";
 
 @Component({

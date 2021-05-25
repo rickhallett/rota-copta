@@ -1,13 +1,12 @@
-import { HttpClient, HttpErrorResponse } from "@angular/common/http";
+import { HttpErrorResponse } from "@angular/common/http";
 import { Injectable } from "@angular/core";
 import { Observable, throwError } from "rxjs";
-import { Role } from "../models/models";
 
 @Injectable()
 export class HttpErrorService {
   constructor() {}
 
-  handleError(error: HttpErrorResponse) {
+  handleError(error: HttpErrorResponse): Observable<never> {
     if (error.status === 0) {
       console.error("A client/server error occured:", error.error);
     } else {

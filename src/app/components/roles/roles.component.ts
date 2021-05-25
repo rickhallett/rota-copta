@@ -1,6 +1,7 @@
 import { Component, OnInit } from "@angular/core";
 import { DataStore } from "src/app/services/data-store.service";
 import { Role, User } from "src/app/models/models";
+import { Observable } from "rxjs";
 
 @Component({
   selector: "app-roles",
@@ -24,7 +25,7 @@ export class RolesComponent implements OnInit {
     this.dataStoreService.updateRoleName(event.target.value, role);
   }
 
-  get roles$() {
+  get roles$(): Observable<Role[]> {
     return this.dataStoreService.roles$;
   }
 }
