@@ -1,6 +1,6 @@
 import { Component, OnInit } from "@angular/core";
 import { DataStore } from "src/app/services/data-store.service";
-import { User } from "src/app/models/models";
+import { Role, User } from "src/app/models/models";
 
 @Component({
   selector: "app-roles",
@@ -18,6 +18,10 @@ export class RolesComponent implements OnInit {
 
   getRoleColour(roleId: number): string {
     return this.dataStoreService.getRoleColour(roleId);
+  }
+
+  onNameInput(event: any, role: Role): void {
+    this.dataStoreService.updateRoleName(event.target.value, role);
   }
 
   get roles$() {

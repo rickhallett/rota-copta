@@ -12,6 +12,7 @@
         type="text"
         [value]="role.name"
         [style.color]="getRoleColour(role.id)"
+        (blur)="onNameInput($event, role)"
       />
     </td>
     <td>

@@ -1,3 +1,4 @@
+import { THIS_EXPR } from "@angular/compiler/src/output/output_ast";
 import { Injectable } from "@angular/core";
 import { BehaviorSubject, Observable } from "rxjs";
 import { map, mergeMap, toArray } from "rxjs/operators";
@@ -19,7 +20,7 @@ export class DataStore {
   ) {
     this.loadInitialData();
     this.sortUsersByName();
-    // this.sortRolesByName();
+    this.sortRolesByName();
   }
 
   loadInitialData() {
@@ -38,14 +39,14 @@ export class DataStore {
     console.log(this.users$);
   }
 
-  // sortRolesByName() {
-  //   this.roles$ = this.roles$.pipe(
-  //     map((role) => {
-  //       role.sort((a, b) => (a.name < b.name ? -1 : 1));
-  //       return role;
-  //     })
-  //   );
-  // }
+  sortRolesByName() {
+    this.roles$ = this.roles$.pipe(
+      map((role) => {
+        role.sort((a, b) => (a.name < b.name ? -1 : 1));
+        return role;
+      })
+    );
+  }
 
   // TODO: this approach ends up calling getRoleUsers 30x on page load (presumably a result of returning a new data structure to the view,
   // which causes some cascade of lifecycle hook execution)
@@ -83,6 +84,21 @@ export class DataStore {
         }
 
         return user;
+      })
+    );
+  }
+
+  updateRoleName(newRoleName: string, role: Role): void {
+    console.log("updateRoleName", newRoleName, role);
+    this._roles.next(
+      this._roles.getValue().map((r) => {
+        if (r.id === role.id) {
+          r.name = newRoleName;
+        }
+
+        console.log(r);
+
+        return r;
       })
     );
   }
