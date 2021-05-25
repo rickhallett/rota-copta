@@ -1,5 +1,6 @@
 import { Injectable } from "@angular/core";
 import { BehaviorSubject, Observable } from "rxjs";
+import { map, mergeMap, toArray } from "rxjs/operators";
 import { Role, User } from "../models/models";
 import { RolesService } from "./roles.service";
 import { UsersService } from "./users.service";
@@ -9,14 +10,16 @@ export class DataStore {
   private _users: BehaviorSubject<User[]> = new BehaviorSubject<User[]>([]);
   private _roles: BehaviorSubject<Role[]> = new BehaviorSubject<Role[]>([]);
 
-  public readonly $users: Observable<User[]> = this._users.asObservable();
-  public readonly $roles: Observable<Role[]> = this._roles.asObservable();
+  public users$: Observable<User[]> = this._users.asObservable();
+  public roles$: Observable<Role[]> = this._roles.asObservable();
 
   constructor(
     private usersService: UsersService,
     private rolesService: RolesService
   ) {
     this.loadInitialData();
+    this.sortUsersByName();
+    // this.sortRolesByName();
   }
 
   loadInitialData() {
@@ -24,14 +27,34 @@ export class DataStore {
     this.rolesService.getRoles().subscribe((data) => this._roles.next(data));
   }
 
-  // TODO: this approach ends up calling getRoleUsers 30x on page load (presumably a result of returning a new data structure to the view, 
+  sortUsersByName() {
+    console.log(this.users$);
+    this.users$ = this.users$.pipe(
+      map((user) => {
+        user.sort((a, b) => (a.name < b.name ? -1 : 1));
+        return user;
+      })
+    );
+    console.log(this.users$);
+  }
+
+  // sortRolesByName() {
+  //   this.roles$ = this.roles$.pipe(
+  //     map((role) => {
+  //       role.sort((a, b) => (a.name < b.name ? -1 : 1));
+  //       return role;
+  //     })
+  //   );
+  // }
+
+  // TODO: this approach ends up calling getRoleUsers 30x on page load (presumably a result of returning a new data structure to the view,
   // which causes some cascade of lifecycle hook execution)
   // SOLUTION: map the data prior to request from template
   getRoleUsers(roleId: number): User[] {
     return this._users
       .getValue()
       .filter((user) => (user.roles ? user.roles.includes(roleId) : false))
-      .sort((a, b) => a.name < b.name ? -1 : 1);
+      .sort((a, b) => (a.name < b.name ? -1 : 1));
   }
 
   getUserRoles(user: User): Role[] {
@@ -53,12 +76,14 @@ export class DataStore {
   }
 
   updateUserName(newName, userId): void {
-    this._users.next(this._users.getValue().map((user) => {
-      if (user.id === userId) {
-        user.name = newName;
-      }
+    this._users.next(
+      this._users.getValue().map((user) => {
+        if (user.id === userId) {
+          user.name = newName;
+        }
 
-      return user;
-    }));
+        return user;
+      })
+    );
   }
 }

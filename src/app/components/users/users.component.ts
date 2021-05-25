@@ -1,7 +1,7 @@
 import { Component, OnChanges, OnInit } from "@angular/core";
-import { Observable } from 'rxjs';
-import { Role, User } from 'src/app/models/models';
-import { DataStore } from 'src/app/services/data-store.service';
+import { Observable } from "rxjs";
+import { Role, User } from "src/app/models/models";
+import { DataStore } from "src/app/services/data-store.service";
 
 @Component({
   selector: "app-users",
@@ -31,7 +31,7 @@ export class UsersComponent implements OnInit, OnChanges {
     return this.dataStoreService.getUserRoles(user);
   }
 
-  get $users(): Observable<User[]> {
-    return this.dataStoreService.$users;
+  get users$(): Observable<User[]> {
+    return this.dataStoreService.users$;
   }
 }

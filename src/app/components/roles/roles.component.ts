@@ -1,6 +1,6 @@
-import { Component, OnInit } from '@angular/core';
-import { DataStore } from 'src/app/services/data-store.service';
-import { User } from 'src/app/models/models';
+import { Component, OnInit } from "@angular/core";
+import { DataStore } from "src/app/services/data-store.service";
+import { User } from "src/app/models/models";
 
 @Component({
   selector: "app-roles",
@@ -20,7 +20,7 @@ export class RolesComponent implements OnInit {
     return this.dataStoreService.getRoleColour(roleId);
   }
 
-  get $roles() {
-    return this.dataStoreService.$roles;
+  get roles$() {
+    return this.dataStoreService.roles$;
   }
 }
