@@ -24,8 +24,14 @@ export class DataStore {
   }
 
   loadInitialData() {
-    this.usersService.getUsers().subscribe((data) => this._users.next(data));
-    this.rolesService.getRoles().subscribe((data) => this._roles.next(data));
+    this.usersService.getUsers().subscribe(
+      (data) => this._users.next(data),
+      (error) => alert(`Could not retrieve users! ${error}`)
+    );
+    this.rolesService.getRoles().subscribe(
+      (data) => this._roles.next(data),
+      (error) => alert(`Could not retrieve roles! ${error}`)
+    );
   }
 
   sortUsersByName() {
